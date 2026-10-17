@@ -4,7 +4,7 @@ export type User = {
     readonly id: UserId;
     email: string;
     name: string;
-    role: "admin" | "member" | "viewer";
+    role: UserRole;
     readonly createdAt:  Date;
 };
 export type UserRole = "admin" | "member" | "viewer";
