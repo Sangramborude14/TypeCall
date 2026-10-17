@@ -6,9 +6,9 @@ export type IssuePriority = "low" | "medium" | "high" | "urgent";
 
 export type Issue = {
     readonly id: IssueId;
-    readonly ProjectId: ProjectId;
-    readonly UserId: UserId;
-    assigneeId : string | null;
+    readonly projectId: ProjectId;
+    readonly authorId: UserId;
+    assigneeId : UserId | null;
     title: string;
     description: string | null;
     status: IssueStatus
@@ -18,5 +18,7 @@ export type Issue = {
 
 }
 
-type CreateIssueInput = Pick<Issue,"id"|"ProjectId"|"UserId"|"status"|"priority">;
-type UpdateIssueInput = Pick<Issue, "assigneeId"|"priority"|"status"|"title"|"description"|"updatedAt">;
+export type CreateIssueInput = Pick<Issue,"title" | "projectId" | "authorId"> &  Partial<{status: string; priority: string; description: string; assigneeId: string}>;
+export type UpdateIssueInput = Partial<Pick<Issue, "assigneeId"|"priority"|"status"|"description">>;
+
+
