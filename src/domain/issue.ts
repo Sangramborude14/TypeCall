@@ -21,4 +21,21 @@ export type Issue = {
 export type CreateIssueInput = Pick<Issue,"title" | "projectId" | "authorId"> &  Partial<{status: string; priority: string; description: string; assigneeId: string}>;
 export type UpdateIssueInput = Partial<Pick<Issue, "assigneeId"|"priority"|"status"|"description">>;
 
+// satisfies can preserve narrower inferred types whereas a type annotation uses the declared type
+
+
+export const VALID_STATUS_TRANSITIONS = {
+ backlog: ["todo","cancelled"],
+        todo: ["in_progress", "backlog", "cancelled"],
+        in_progress: ["in_review","todo","cancelled"],
+        in_review: ["done","in_progress","cancelled"],
+        done: ["todo", "backlog"],
+        cancelled: ["backlog", "todo"],
+} as const satisfies Record<IssueStatus, readonly IssueStatus[]>;
+
+export function canTransition(from: IssueStatus, to: IssueStatus): boolean {
+   const allowed = VALID_STATUS_TRANSITIONS[from];
+   return (allowed as readonly IssueStatus[]).includes(to);
+}
+
 
