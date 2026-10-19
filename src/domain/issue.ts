@@ -1,3 +1,5 @@
+import { InvalidTransitionError } from "./errors.js";
+import { err, ok, type Result } from "./result.js";
 import type {IssueId, ProjectId, UserId} from "./types.js"
 
 export type IssueStatus = "backlog" | "todo" | "in_progress" | "in_review" | "done" | "cancelled";
@@ -38,4 +40,19 @@ export function canTransition(from: IssueStatus, to: IssueStatus): boolean {
    return (allowed as readonly IssueStatus[]).includes(to);
 }
 
-
+export function transitionIssue(
+    issue: Issue,
+    nextStatus: IssueStatus
+): Result<Issue, InvalidTransitionError>
+{
+    if(!canTransition(issue.status,nextStatus)){
+        return err(new InvalidTransitionError(issue.status,nextStatus))
+    }else{
+        // return a onject for immutability
+        return ok({
+            ...issue,
+            status: nextStatus,
+            updatedAt: new Date(),
+        });
+    }
+}
