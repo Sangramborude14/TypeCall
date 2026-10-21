@@ -48,7 +48,7 @@ export function transitionIssue(
     if(!canTransition(issue.status,nextStatus)){
         return err(new InvalidTransitionError(issue.status,nextStatus))
     }else{
-        // return a onject for immutability
+        // return a object for immutability
         return ok({
             ...issue,
             status: nextStatus,
