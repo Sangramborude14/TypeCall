@@ -12,7 +12,20 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^26.6.5",
+    "node": "^26.12.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
-  }
+  },
+  "dependencies": {
+    "esbuild": "^0.28.2",
+    "undici-types": "^8.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sangramborude14/TypeCall.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sangramborude14/TypeCall/issues"
+  },
+  "homepage": "https://github.com/Sangramborude14/TypeCall#readme"
 }
