@@ -20,7 +20,7 @@ export type Issue = {
 
 }
 
-export type CreateIssueInput = Pick<Issue,"title" | "projectId" | "authorId"> &  Partial<{status: string; priority: string; description: string; assigneeId: string}>;
+export type CreateIssueInput = Pick<Issue,"title" | "projectId" | "authorId"> &  Partial<Pick<Issue, "status" | "priority" | "description" | "assigneeId">>;
 export type UpdateIssueInput = Partial<Pick<Issue, "assigneeId"|"priority"|"status"|"description">>;
 
 // satisfies can preserve narrower inferred types whereas a type annotation uses the declared type
@@ -40,7 +40,7 @@ export function canTransition(from: IssueStatus, to: IssueStatus): boolean {
    return (allowed as readonly IssueStatus[]).includes(to);
 }
 
-export function transitionIssue(
+export function DomainTransitionIssue(
     issue: Issue,
     nextStatus: IssueStatus
 ): Result<Issue, InvalidTransitionError>
